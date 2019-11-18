@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-fail
+  labels:
+    app: nginx
+spec:
+  containers:
+  - name: web
+    image: nginx:alpine
+    ports:
+    - containerPort: 80
+    livenessProbe:
+      httpGet:
+        path: /nohealthz
+        port: 80
+    readinessProbe:
+      httpGet:
+        path: /noreadiness
+        port: 80
